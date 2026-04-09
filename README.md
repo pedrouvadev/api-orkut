@@ -30,10 +30,10 @@
 | `POST` | `/usuarios` | Criar novo usuário | Não |
 | `POST` | `/login` | Autenticar usuário e gerar token | Não |
 | `GET` | `/usuarios` | Listar todos os usuários | Não |
-| `GET` | `/posts` | Listar todas as postagens | Não |
+| `GET` | `/posts` | Listar todas as postagens (com dados do usuário) | Não |
 | `POST` | `/posts` | Criar nova postagem | Sim |
-| `PUT` | `/posts/:id` | Atualizar postagem existente | Sim |
-| `DELETE` | `/posts/:id` | Deletar postagem | Sim |
+| `PUT` | `/posts/:id` | Atualizar postagem existente (apenas dono) | Sim |
+| `DELETE` | `/posts/:id` | Deletar postagem (apenas dono) | Sim |
 
 ### **Exemplos de Requisição e Resposta**
 
@@ -59,7 +59,7 @@ POST /usuarios
     "id": 1,
     "nome": "João Silva",
     "email": "joao@exemplo.com",
-    "created_at": "2024-01-01T00:00:00.000Z"
+    "senha": "$2b$10$hashedpassword..."
   }
 }
 ```
@@ -112,6 +112,8 @@ Authorization: Bearer <token_jwt>
 }
 ```
 
+**Importante:** O usuário é automaticamente associado através do token JWT (`req.usuario.id`).
+
 #### **Listar Postagens**
 ```bash
 GET /posts
@@ -130,6 +132,8 @@ GET /posts
   }
 ]
 ```
+
+**Observação:** A lista de posts retorna dados do autor através de JOIN com a tabela `usuarios`.
 
 ## **Como Executar o Projeto Localmente**
 
@@ -184,8 +188,9 @@ A API está hospedada na plataforma **Render** e disponível para acesso atravé
 
 ## **Autor**
 
-**Pedro Henrique Uva de Vasconcelos**
+**Pedro Uva**
 
+- **Portfolio:** [mruva.com.br](https://mruva.com.br)
 - **GitHub:** [pedrouvadev](https://github.com/pedrouvadev)
 - **Email:** pedrouvadev@gmail.com
 
